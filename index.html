@@ -1,0 +1,610 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#071426">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="description" content="Kevin Morales Game Center - Discover and play browser games.">
+<title>Kevin Morales | Game Center</title>
+
+<style>
+:root {
+  --bg: #06101f;
+  --panel: #0d1d32;
+  --panel2: #102743;
+  --blue: #168cff;
+  --cyan: #45c8ff;
+  --text: #f4f8ff;
+  --muted: #9aacc4;
+  --border: #1c3c5e;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background:
+    radial-gradient(ellipse at 50% -20%, #123d69 0%, transparent 55%),
+    var(--bg);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  min-height: 72px;
+  padding: 15px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(7, 20, 38, .94);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(14px);
+}
+
+.logo {
+  font-size: 23px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  color: var(--cyan);
+}
+
+.online {
+  color: #45e69b;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.online span {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 6px;
+  border-radius: 50%;
+  background: #45e69b;
+  box-shadow: 0 0 12px #45e69b;
+}
+
+.hero {
+  width: 90%;
+  max-width: 1250px;
+  margin: 35px auto 40px;
+  padding: 75px 45px;
+  border: 1px solid #2877b8;
+  border-radius: 25px;
+  overflow: hidden;
+  position: relative;
+  background:
+    radial-gradient(circle at 85% 20%, #42c5ff55, transparent 28%),
+    linear-gradient(120deg, #10294b, #0759a9 65%, #087ee5);
+  box-shadow: 0 20px 55px #0006;
+}
+
+.hero::after {
+  content: "🎮";
+  position: absolute;
+  right: 8%;
+  top: 50%;
+  transform: translateY(-50%) rotate(-12deg);
+  font-size: clamp(75px, 13vw, 155px);
+  opacity: .17;
+  pointer-events: none;
+}
+
+.hero-label {
+  display: inline-block;
+  padding: 8px 13px;
+  border: 1px solid #ffffff40;
+  border-radius: 30px;
+  background: #ffffff12;
+  color: #d8f2ff;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin-bottom: 17px;
+}
+
+.hero h1 {
+  font-size: clamp(34px, 6vw, 58px);
+  font-weight: 900;
+  letter-spacing: 1px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero p {
+  color: #d6eaff;
+  margin-top: 13px;
+  line-height: 1.6;
+  position: relative;
+  z-index: 1;
+}
+
+.container {
+  width: 90%;
+  max-width: 1250px;
+  margin: auto;
+}
+
+.search-area {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.search {
+  width: 100%;
+  padding: 17px 48px 17px 18px;
+  border-radius: 13px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: white;
+  font-size: 16px;
+  outline: none;
+  transition: .2s;
+}
+
+.search:focus {
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 3px #38bdf822;
+}
+
+.clear-search {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 22px;
+  cursor: pointer;
+  padding: 5px 9px;
+}
+
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px 0 30px;
+}
+
+.category {
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 11px 17px;
+  background: var(--panel);
+  color: #d5e5f7;
+  cursor: pointer;
+  font-weight: bold;
+  transition: .2s;
+}
+
+.category:hover,
+.category.active {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: white;
+  box-shadow: 0 5px 18px #168cff35;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin: 30px 0 20px;
+}
+
+.section-title {
+  color: var(--cyan);
+  font-size: 20px;
+}
+
+.game-count {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.games {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 22px;
+  margin-bottom: 65px;
+}
+
+.game {
+  min-width: 0;
+  background: linear-gradient(150deg, var(--panel2), var(--panel));
+  border: 1px solid var(--border);
+  border-radius: 17px;
+  overflow: hidden;
+  transition: transform .25s, border-color .25s, box-shadow .25s;
+  animation: appear .5s ease both;
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.game:hover {
+  transform: translateY(-7px);
+  border-color: var(--cyan);
+  box-shadow: 0 14px 35px #007bff30;
+}
+
+.art {
+  height: 165px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  background:
+    radial-gradient(circle, #1c5485, #0b1c31 75%);
+  border-bottom: 1px solid var(--border);
+}
+
+.art img {
+  width: 105px;
+  height: 105px;
+  object-fit: contain;
+  border-radius: 20px;
+  filter: drop-shadow(0 8px 18px #0007);
+  transition: transform .3s;
+}
+
+.game:hover .art img {
+  transform: scale(1.1);
+}
+
+.art-fallback {
+  font-size: 65px;
+  display: none;
+  filter: drop-shadow(0 5px 12px #0008);
+}
+
+.info {
+  padding: 18px;
+}
+
+.info h3 {
+  font-size: 17px;
+  margin-bottom: 9px;
+}
+
+.info p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+  min-height: 42px;
+}
+
+.play {
+  display: block;
+  text-align: center;
+  background: linear-gradient(100deg, #087ee5, #159dff);
+  color: white;
+  padding: 13px;
+  border-radius: 9px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: .5px;
+  margin-top: 16px;
+  transition: .2s;
+}
+
+.play:hover {
+  background: linear-gradient(100deg, #159dff, #43c5ff);
+  box-shadow: 0 5px 18px #168cff55;
+}
+
+.empty {
+  display: none;
+  text-align: center;
+  color: var(--muted);
+  padding: 45px 15px;
+  background: var(--panel);
+  border: 1px dashed var(--border);
+  border-radius: 15px;
+  margin-bottom: 60px;
+}
+
+footer {
+  background: #081629;
+  text-align: center;
+  padding: 35px 15px;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+  line-height: 1.8;
+}
+
+footer strong {
+  color: var(--cyan);
+}
+
+@media (max-width: 600px) {
+  header { padding: 16px 5%; }
+  .logo { font-size: 18px; }
+  .hero {
+    padding: 45px 23px;
+    margin-top: 22px;
+  }
+  .hero::after { right: 5%; font-size: 75px; }
+  .container { width: 92%; }
+  .games { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .art { height: 125px; }
+  .art img { width: 78px; height: 78px; }
+  .info { padding: 13px; }
+  .info h3 { font-size: 14px; }
+  .info p { font-size: 12px; }
+  .play { padding: 11px 5px; font-size: 11px; }
+  .category { padding: 10px 12px; font-size: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">🎮 KEVIN MORALES</div>
+  <div class="online"><span></span> ONLINE</div>
+</header>
+
+<section class="hero">
+  <div class="hero-label">WELCOME TO THE GAME CENTER</div>
+  <h1>PLAY. EXPLORE. HAVE FUN.</h1>
+  <p>Discover your next favorite game.<br>Choose a game and start playing!</p>
+</section>
+
+<main class="container">
+
+  <div class="search-area">
+    <input
+      class="search"
+      id="search"
+      type="search"
+      placeholder="🔎 Search games..."
+      aria-label="Search games"
+      autocomplete="off"
+    >
+    <button class="clear-search" id="clearSearch" aria-label="Clear search" type="button">×</button>
+  </div>
+
+  <nav class="categories" aria-label="Game categories">
+    <button class="category active" data-cat="all">All Games</button>
+    <button class="category" data-cat="action">Action</button>
+    <button class="category" data-cat="puzzle">Puzzle</button>
+    <button class="category" data-cat="multiplayer">Multiplayer</button>
+    <button class="category" data-cat="classic">Classic</button>
+    <button class="category" data-cat="strategy">Strategy</button>
+  </nav>
+
+  <div class="section-heading">
+    <h2 class="section-title">🔥 POPULAR GAMES</h2>
+    <span class="game-count" id="gameCount">10 games</span>
+  </div>
+
+  <section class="games" id="games">
+
+    <article class="game" data-cat="action multiplayer">
+      <div class="art">
+        <img src="https://www.google.com/s2/favicons?domain=poki.com&sz=256" alt="Poki icon" loading="lazy">
+        <span class="art-fallback">🏃</span>
+      </div>
+      <div class="info">
+        <h3>TAG</h3>
+        <p>The original multiplayer TAG game by WeLoPlay.</p>
+        <a class="play" href="https://poki.com/en/g/tag" target="_blank" rel="noopener noreferrer">PLAY NOW ↗</a>
+      </div>
+    </article>
+
+    <article class="game" data-cat="action multiplayer">
+      <div class="art">
+        <img src="https://www.google.com/s2/favicons?domain=roblox.com&sz=256" alt="Roblox icon" loading="lazy">
+        <span class="art-fallback">🎮</span>
+      </div>
+      <div class="info">
+        <h3>ROBLOX</h3>
+        <p>Explore millions of experiences and games.</p>
+        <a class="play" href="https://www.roblox.com/" target="_blank" rel="noopener noreferrer">PLAY NOW ↗</a>
+      </div>
+    </article>
+
+    <article class="game" data-cat="action">
+      <div class="art">
+        <img src="https://www.google.com/s2/favicons?domain=minecraft.net&sz=256" alt="Minecraft icon" loading="lazy">
+        <span class="art-fallback">⛏️</span>
+      </div>
+      <div class="info">
+        <h3>MINECRAFT</h3>
+        <p>Build, explore and create your own world.</p>
+        <a class="play" href="https://www.minecraft.net/" target="_blank" rel="noopener noreferrer">PLAY NOW ↗</a>
+      </div>
+    </article>
+
+    <article class="game" data-cat="action">
+      <div class="art">
+        <img src="https://www.google.com/s2/favicons?domain=poki.com&sz=256" alt="Poki icon" loading="lazy">
+        <span class="art-fallback">🏄</span>
+      </div>
+      <div class="info">
+        <h3>SUBWAY SURFERS</h3>
+        <p>Run, jump and dodge obstacles.</p>
+        <a class="play" href="https://poki.com/en/g/subway-surfers" target="_blank" rel="noopener noreferrer">PLAY NOW ↗</a>
+      </div>
+    </article>
+
+    <article class="game" data-cat="puzzle">
+      <div class="art">
+        <img src="https://www.google.com/s2/favicons?domain=2048.gg&sz=256" alt="2048 icon" loading="lazy">
+        <span class="art-fallback">🔢</span>
+      </div>
+      <div class="info">
+        <h3>2048</h3>
+        <p>Combine numbers to reach 2048.</p>
+        <a class="play" href="https://2048.gg/en" target="_blank" rel="noopener noreferrer">PLAY NOW ↗</a>
+      </div>
+    </article>
+
+    <article class="game" data-cat="puzzle">
+      <div class="art">
+        <img src="https://www.google.com/s2/favicons?domain=minesweeper.online&sz=256" alt="Minesweeper icon" loading="lazy">
+        <span class="art-fallback">💣</span>
+      </div>
+      <div class="info">
+        <h3>MINESWEEPER</h3>
+        <p>Find safe squares and avoid hidden mines.</p>
+        <a class="play" href="https://minesweeper.online/" target="_blank" rel="noopener noreferrer">PLAY NOW ↗</a>
+      </div>
+    </article>
+
+    <article class="game" data-cat="classic">
+      <div class="art">
+        <img src="https://www.google.com/s2/favicons?domain=playsnake.org&sz=256" alt="Snake icon" loading="lazy">
+        <span class="art-fallback">🐍</span>
+      </div>
+      <div class="info">
+        <h3>SNAKE</h3>
+        <p>Play the classic snake game.</p>
+        <a class="play" href="https://playsnake.org/" target="_blank" rel="noopener noreferrer">PLAY NOW ↗</a>
+      </div>
+    </article>
+
+    <article class="game" data-cat="puzzle">
+      <div class="art">
+        <img src="https://www.google.com/s2/favicons?domain=sudoku.com&sz=256" alt="Sudoku icon" loading="lazy">
+        <span class="art-fallback">🧩</span>
+      </div>
+      <div class="info">
+        <h3>SUDOKU</h3>
+        <p>Train your brain with number puzzles.</p>
+        <a class="play" href="https://sudoku.com/" target="_blank" rel="noopener noreferrer">PLAY NOW ↗</a>
+      </div>
+    </article>
+
+    <article class="game" data-cat="strategy multiplayer">
+      <div class="art">
+        <img src="https://www.google.com/s2/favicons?domain=chess.com&sz=256" alt="Chess icon" loading="lazy">
+        <span class="art-fallback">♟️</span>
+      </div>
+      <div class="info">
+        <h3>CHESS</h3>
+        <p>Challenge friends and test your strategy.</p>
+        <a class="play" href="https://www.chess.com/" target="_blank" rel="noopener noreferrer">PLAY NOW ↗</a>
+      </div>
+    </article>
+
+    <article class="game" data-cat="classic">
+      <div class="art">
+        <img src="https://www.google.com/s2/favicons?domain=poki.com&sz=256" alt="Poki icon" loading="lazy">
+        <span class="art-fallback">🕹️</span>
+      </div>
+      <div class="info">
+        <h3>ARCADE GAMES</h3>
+        <p>Discover more fun browser games.</p>
+        <a class="play" href="https://poki.com/" target="_blank" rel="noopener noreferrer">PLAY NOW ↗</a>
+      </div>
+    </article>
+
+  </section>
+
+  <div class="empty" id="empty">
+    <h2>No games found 😕</h2>
+    <p style="margin-top:10px">Try another name or category.</p>
+  </div>
+
+</main>
+
+<footer>
+  <strong>🎮 KEVIN MORALES</strong>
+  <p>Gaming for everyone.</p>
+  <p>© 2026 Kevin Morales</p>
+</footer>
+
+<script>
+const search = document.getElementById("search");
+const games = [...document.querySelectorAll(".game")];
+const buttons = [...document.querySelectorAll(".category")];
+const empty = document.getElementById("empty");
+const count = document.getElementById("gameCount");
+const clearSearch = document.getElementById("clearSearch");
+
+let category = "all";
+
+function filterGames() {
+  const query = search.value.toLowerCase().trim();
+  let visibleCount = 0;
+
+  games.forEach(game => {
+    const name = game.innerText.toLowerCase();
+    const categories = game.dataset.cat.split(" ");
+
+    const matchesName = name.includes(query);
+    const matchesCategory =
+      category === "all" || categories.includes(category);
+
+    const visible = matchesName && matchesCategory;
+
+    game.hidden = !visible;
+
+    if (visible) visibleCount++;
+  });
+
+  empty.style.display = visibleCount === 0 ? "block" : "none";
+  count.textContent = visibleCount + (visibleCount === 1 ? " game" : " games");
+}
+
+search.addEventListener("input", filterGames);
+
+clearSearch.addEventListener("click", () => {
+  search.value = "";
+  filterGames();
+  search.focus();
+});
+
+buttons.forEach(button => {
+  button.addEventListener("click", () => {
+    buttons.forEach(item => item.classList.remove("active"));
+    button.classList.add("active");
+    category = button.dataset.cat;
+    filterGames();
+  });
+});
+
+// Show a backup icon if a game image fails.
+document.querySelectorAll(".art img").forEach(img => {
+  img.addEventListener("error", () => {
+    img.style.display = "none";
+    const fallback = img.nextElementSibling;
+    if (fallback) fallback.style.display = "block";
+  });
+});
+
+filterGames();
+</script>
+
+</body>
+</html>
