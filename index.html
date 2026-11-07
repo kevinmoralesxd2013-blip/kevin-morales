@@ -1,0 +1,159 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kevin Morales | Games</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+ background:#080e1c;
+ color:white;
+ font-family:Arial,sans-serif;
+}
+header{
+ background:#101c33;
+ padding:22px;
+ border-bottom:2px solid #168cff;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+}
+.logo{font-size:23px;font-weight:bold;color:#38aaff}
+.hero{
+ margin:20px;
+ padding:35px 20px;
+ border-radius:18px;
+ background:linear-gradient(135deg,#102c55,#0879c9);
+}
+.hero h1{font-size:30px;margin-bottom:12px}
+.hero p{color:#d6eaff}
+.search{
+ margin:20px;
+ width:calc(100% - 40px);
+ padding:15px;
+ border:1px solid #168cff;
+ border-radius:12px;
+ background:#111e32;
+ color:white;
+ font-size:16px;
+ outline:none;
+}
+h2{margin:25px 20px;color:#38aaff}
+.games{
+ display:grid;
+ grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:15px;
+ padding:0 15px 30px;
+}
+.game{
+ background:#111d31;
+ border:1px solid #1c3c60;
+ border-radius:15px;
+ overflow:hidden;
+}
+.game img{
+ width:100%;
+ height:130px;
+ object-fit:cover;
+}
+.info{padding:13px}
+.info h3{margin-bottom:8px}
+.info p{font-size:12px;color:#aabbd0;margin-bottom:12px}
+button{
+ width:100%;
+ padding:12px;
+ background:#087ee5;
+ border:0;
+ color:white;
+ border-radius:9px;
+ font-weight:bold;
+}
+button:active{background:#0059ad}
+footer{
+ text-align:center;
+ padding:25px;
+ color:#71849e;
+ border-top:1px solid #1c3452;
+}
+</style>
+</head>
+<body>
+
+<header>
+<div class="logo">🎮 KEVIN MORALES</div>
+<span>🟢 ONLINE</span>
+</header>
+
+<section class="hero">
+<h1>¡BIENVENIDO A MI ARCADE!</h1>
+<p>Descubre tus videojuegos favoritos en un solo lugar.</p>
+</section>
+
+<input class="search" id="search"
+placeholder="🔎 Buscar juegos..."
+oninput="buscar()">
+
+<h2>🔥 JUEGOS POPULARES</h2>
+
+<section class="games" id="games">
+
+<div class="game">
+<img src="https://www.roblox.com/favicon.ico">
+<div class="info">
+<h3>ROBLOX</h3>
+<p>¡Explora millones de experiencias!</p>
+<button onclick="abrir('https://www.roblox.com/')">JUGAR AHORA</button>
+</div>
+</div>
+
+<div class="game">
+<img src="https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/Homepage_Gameplay-Trailer_MC-OV-logo_300x300.jpg">
+<div class="info">
+<h3>MINECRAFT</h3>
+<p>Construye y explora mundos.</p>
+<button onclick="abrir('https://www.minecraft.net/')">JUGAR AHORA</button>
+</div>
+</div>
+
+<div class="game">
+<img src="https://www.innersloth.com/wp-content/uploads/2021/06/AmongUs_Icon.png">
+<div class="info">
+<h3>AMONG US</h3>
+<p>Descubre quién es el impostor.</p>
+<button onclick="abrir('https://www.innersloth.com/games/among-us/')">JUGAR AHORA</button>
+</div>
+</div>
+
+<div class="game">
+<img src="https://subwaysurfers.com/favicon.ico">
+<div class="info">
+<h3>SUBWAY SURFERS</h3>
+<p>Corre y esquiva obstáculos.</p>
+<button onclick="abrir('https://poki.com/en/g/subway-surfers')">JUGAR AHORA</button>
+</div>
+</div>
+
+</section>
+
+<footer>
+KEVIN MORALES © 2026<br>
+Todos los derechos reservados.
+</footer>
+
+<script>
+function abrir(url){
+ window.open(url,'_blank');
+}
+function buscar(){
+ let texto=document.getElementById('search').value.toLowerCase();
+ document.querySelectorAll('.game').forEach(juego=>{
+ juego.style.display=juego.innerText.toLowerCase().includes(texto)
+ ?'block':'none';
+ });
+}
+</script>
+
+</body>
+</html>
